@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: [texlive, xetexlive]
+        image: [texlive, texlive-full, xetexlive, xetexlive-more]
 
 
     steps:
