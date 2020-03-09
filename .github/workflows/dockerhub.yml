@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: [texlive, xetexlive]
+
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: |
+        echo ${{ secrets.password }} | docker login -u ${{ secrets.username }} --password-stdin
+        docker build . --file ${{ matrix.image }}/Dockerfile --tag ldz/${{ matrix.image }}:latest
+        docker push ldz/${{ matrix.image }}:latest
