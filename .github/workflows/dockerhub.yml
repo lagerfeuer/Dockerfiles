@@ -9,12 +9,13 @@ on:
 jobs:
 
   build:
+    if: "! contains(toJSON(github.event.commits.*.msg), '[skip ci]')"
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: [texlive, texlive-full, xetexlive, xetexlive-more]
-
+        # image: [texlive, texlive-full, xetexlive, xetexlive-more]
+        image: [texlive, xetexlive, xetexlive-more]
 
     steps:
     - uses: actions/checkout@v2
