@@ -21,5 +21,5 @@ jobs:
     - name: Build the Docker image
       run: |
         echo ${{ secrets.password }} | docker login -u ${{ secrets.username }} --password-stdin
-        docker build . --file ${{ matrix.image }}/Dockerfile --tag ldz/${{ matrix.image }}:latest
-        docker push ldz/${{ matrix.image }}:latest
+        docker build . --file ${{ matrix.image }}/Dockerfile --tag ${{ secrets.username }}/${{ matrix.image }}:latest
+        docker push ${{ secrets.username }}/${{ matrix.image }}:latest
