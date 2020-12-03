@@ -15,12 +15,13 @@ jobs:
     strategy:
       matrix:
         # image: [texlive, texlive-full, xetexlive, xetexlive-more]
-        image: [texlive, xetexlive, xetexlive-more]
+        # image: [texlive, xetexlive, xetexlive-more]
+        image: [clang]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: |
-        echo ${{ secrets.password }} | docker login -u ${{ secrets.username }} --password-stdin
-        docker build . --file ${{ matrix.image }}/Dockerfile --tag ${{ secrets.username }}/${{ matrix.image }}:latest
-        docker push ${{ secrets.username }}/${{ matrix.image }}:latest
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: |
+          echo ${{ secrets.password }} | docker login -u ${{ secrets.username }} --password-stdin
+          docker build . --file ${{ matrix.image }}/Dockerfile --tag ${{ secrets.username }}/${{ matrix.image }}:latest
+          docker push ${{ secrets.username }}/${{ matrix.image }}:latest
